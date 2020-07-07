@@ -1,0 +1,30 @@
+parameters:
+  - name: jobs
+    type: object
+
+jobs:
+  - ${{ each job in parameters.jobs }}:
+      - job: ${{ job.key }}
+
+        pool:
+          ${{ if or(not(job.value.os), eq(job.value.os, 'linux')) }}:
+            vmImage: "ubuntu-20.04"
+          #${{ if eq(job.value.os, 'windows') }}:
+          #  vmImage: "vs2017-win2016"
+
+        ${{ if job.value.services }}:
+          services: ${{ job.value.services }}
+
+        ${{ if job.value.variables }}:
+          variables: ${{ job.value.variables }}
+
+        steps:
+          - template: ../steps/test.yml
+            parameters:
+              ${{ if startsWith(job.key, 'py36') }}:
+                pythonVersion: "3.6"
+              ${{ if startsWith(job.key, 'py37') }}:
+                pythonVersion: "3.7"
+              ${{ if startsWith(job.key, 'py38') }}:
+                pythonVersion: "3.8"
+              coverage: ${{ eq(job.value.coverage, true) }}

@@ -1,0 +1,19 @@
+parameters:
+  - name: PythonVersion
+    type: string
+
+
+steps:
+  - task: UsePythonVersion@0
+    displayName: "Use Python ${{ parameters.PythonVersion }}"
+    inputs:
+      versionSpec: "${{ parameters.PythonVersion }}"
+  
+  - task: Cache@2
+    displayName: "Cache poetry pypi"
+    inputs:
+      key: "pip | $(Agent.OS) | pyproject.toml"
+      restoreKeys: |
+        pip | $(Agent.OS)
+        pip
+      path: $(POETRY_CACHE_DIR)

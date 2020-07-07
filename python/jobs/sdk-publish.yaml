@@ -1,0 +1,26 @@
+parameters:
+  - name: PypiToken
+    type: string
+  - name: Repository
+    type: string
+    default: 'pypi'
+
+steps:
+  - template: ../provision.yaml
+    parameters:
+      PythonVersion: "3.8"
+
+  - template: ../install.yaml
+    parameters:
+      PythonVersion: "3.8"
+    
+  - script: |
+      poetry build
+    displayName: "Poetry build"
+
+  - script: |
+      poetry publish
+    env:
+      GIT_REF: $(Build.SourceBranch)
+      POETRY_PYPI_TOKEN_PYPI: ${{ parameters.PypiToken }}
+    displayName: "Poetry publish"
