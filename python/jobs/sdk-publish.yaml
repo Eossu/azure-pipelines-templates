@@ -5,6 +5,7 @@ parameters:
     type: string
     default: 'pypi'
 
+
 steps:
   - template: ../provision.yaml
     parameters:
@@ -13,14 +14,19 @@ steps:
   - template: ../install.yaml
     parameters:
       PythonVersion: "3.8"
+  
+  - script: |
+      poetry version ${VERSION}
+    env:
+      VERSION: $(Build.SourceBranch)
     
   - script: |
       poetry build
     displayName: "Poetry build"
 
   - script: |
-      poetry publish
+      poetry publish -r ${REPOSITORY}
     env:
-      GIT_REF: $(Build.SourceBranch)
       POETRY_PYPI_TOKEN_PYPI: ${{ parameters.PypiToken }}
+      REPOSITORY: ${{ parameters.Repository }}
     displayName: "Poetry publish"

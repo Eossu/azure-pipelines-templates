@@ -2,6 +2,7 @@ parameters:
   - name: PypiToken
     type: string
 
+
 stages:
   - stage: publish
     condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/')

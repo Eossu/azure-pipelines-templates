@@ -79,22 +79,26 @@ jobs:
 Publish a package to pypi.
 
 Example:
-Assumes you publish on tags.
+Assumes you publish on tags. An poetry will bump the version according to tag.
 
  ``` yaml
- trigger:
-  - master
-  - refs/tags/*
+trigger:
+  tag:
+    include:
+      - v*
+  branch:
+    include:
+      - master
 
 stages:
-  - stage: test
-    jobs: # ...
-  - stage: publish
-    condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/')
-    jobs:
-      - template: python/jobs/sdk-publish.yaml@templates
-        parameters:
-          pypiRemote: pypi-token
+- stage: test
+  jobs: # ...
+- stage: publish
+  condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/')
+  jobs:
+    - template: python/jobs/sdk-publish.yaml@templates
+      parameters:
+        pypiRemote: pypi-token
  ```
 
 ## Steps
