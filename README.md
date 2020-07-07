@@ -1,8 +1,8 @@
 # azure-pipelines-templates
 
-Azure Pipelines tempaltes for my repos here at github.
+Azure Pipelines templates for my repos here at github.
 
-**Note:** this is created for my personal use so not necessary a stable repository.
+**Note:** this is created for my personal use so its not necessary a stable repository.
 
 ## Setup
 
@@ -27,7 +27,7 @@ resources:
       ref: refs/tags/1.0
 ```
 
-Then reference themplates as `<language>/<template-type>/<template>.yaml@templates`
+Then reference templates as `<language>/<template-type>/<template>.yaml@templates`
 
 ## Languages
 
