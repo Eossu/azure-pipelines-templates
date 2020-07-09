@@ -21,15 +21,19 @@ jobs:
           poetry version ${VERSION}
         env:
           VERSION: $(Build.SourceBranch)
+          POETRY_CACHE_DIR: $(Pipeline.Workspace)/.cache/pypoetry/
         
       - script: |
           poetry build
         displayName: "Poetry build"
+        env:
+          POETRY_CACHE_DIR: $(Pipeline.Workspace)/.cache/pypoetry/
 
       - script: |
           poetry publish -r ${REPOSITORY}
         env:
           POETRY_PYPI_TOKEN_PYPI: ${{ parameters.PypiToken }}
           REPOSITORY: ${{ parameters.Repository }}
+          POETRY_CACHE_DIR: $(Pipeline.Workspace)/.cache/pypoetry/
         displayName: "Poetry publish"
         

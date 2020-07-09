@@ -3,7 +3,11 @@ steps:
   - script: |
       python -m pip install poetry
     displayName: "Install Poetry"
+    env:
+      POETRY_CACHE_DIR: $(Pipeline.Workspace)/.cache/pypoetry/
   
   - script: |
       poetry install
     displayName: "Install dependencies"
+    env:
+      POETRY_CACHE_DIR: $(Pipeline.Workspace)/.cache/pypoetry/

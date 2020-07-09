@@ -12,6 +12,8 @@ steps:
   - script: |
       poetry run pytest -rxXs --junitxml=junit/test-results.xml --cov src --cov tests --cov-report xml --cov-report html
     displayName: "Test with pytest"
+    env:
+      POETRY_CACHE_DIR: $(Pipeline.Workspace)/.cache/pypoetry/
   
   - task: PublishTestResults@2
     displayName: "Publish test results"
