@@ -2,7 +2,13 @@ parameters:
   - name: PythonVersion
     type: string
 
-steps:  
+steps:
+  - template: provision.yaml
+    parameters:
+      PythonVersion: ${{ parameters.PythonVersion }}
+  
+  - template: install.yaml
+
   - script: |
       poetry run pytest -rxXs --junitxml=junit/test-results.xml --cov src --cov tests --cov-report xml --cov-report html
     displayName: "Test with pytest"
