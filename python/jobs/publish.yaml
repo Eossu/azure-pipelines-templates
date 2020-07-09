@@ -1,4 +1,6 @@
 parameters:
+  - name: PythonVersion
+    type: string
   - name: PypiToken
     type: string
   - name: Repository
@@ -14,8 +16,6 @@ jobs:
           PythonVersion: "3.8"
 
       - template: ../steps/install.yaml
-        parameters:
-          PythonVersion: "3.8"
       
       - script: |
           poetry version ${VERSION}
