@@ -1,0 +1,6 @@
+variables:
+  PythonVersion: "3.8"
+  isMaster: $[startsWith(variables['Build.SourceBranch'], 'refs/heads/master']
+  isRelease: $[startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')]
+  isDevelopment: $[eq(variables['Build.SourceBranch'], 'refs/heads/develop')]
+  release: ${{variables['Build.SourceBranchName']}}

@@ -1,13 +1,10 @@
 parameters:
   - name: PythonVersion
     type: string
-  - name: Coverage
-    type: boolean
-    default: false
 
 steps:  
   - script: |
-      pytest -rxXs --junitxml=junit/test-results.xm --cov src --cov tests --cov-report xml --cov-report html
+      poetry run pytest -rxXs --junitxml=junit/test-results.xml --cov src --cov tests --cov-report xml --cov-report html
     displayName: "Test with pytest"
   
   - task: PublishTestResults@2
