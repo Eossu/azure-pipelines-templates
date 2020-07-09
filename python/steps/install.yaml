@@ -1,7 +1,7 @@
 
 steps:
   - script: |
-      pip install poetry
+      python -m pip install poetry
     displayName: "Install Poetry"
   
   - script: |
