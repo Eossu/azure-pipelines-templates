@@ -15,5 +15,4 @@ stages:
       
       - template: ../jobs/test.yaml@templates
         parameters:
-          PythonVersion: ${{ parameters.PythonVersion }}
           jobs: ${{ parameters.jobs }}
