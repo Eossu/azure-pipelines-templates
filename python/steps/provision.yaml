@@ -9,11 +9,11 @@ steps:
     inputs:
       versionSpec: "${{ parameters.PythonVersion }}"
   
-  - task: Cache@2
-    displayName: "Cache poetry pypi"
-    inputs:
-      key: "pip | $(Agent.OS) | pyproject.toml"
-      restoreKeys: |
-        pip | $(Agent.OS)
-        pip
-      path: $(POETRY_CACHE_DIR)
+  #- task: Cache@2
+  #  displayName: "Cache poetry pypi"
+  #  inputs:
+  #    key: "poetry | $(Agent.OS) | pyproject.toml"
+  #    restoreKeys: |
+  #      poetry | $(Agent.OS)
+  #      poetry
+  #    path: $(POETRY_CACHE_DIR)
