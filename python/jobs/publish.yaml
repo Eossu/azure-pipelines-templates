@@ -9,11 +9,11 @@ parameters:
 jobs:
   - job: publish
     steps:
-      - template: ../provision.yaml
+      - template: ../steps/provision.yaml
         parameters:
           PythonVersion: "3.8"
 
-      - template: ../install.yaml
+      - template: ../steps/install.yaml
         parameters:
           PythonVersion: "3.8"
       

@@ -7,6 +7,6 @@ stages:
   - stage: publish
     condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/')
     jobs:
-      - template: ../job/sdk-publish.yaml
+      - template: ../jobs/sdk-publish.yaml
         parameters:
           PypiToken: ${{ parameters.PypiToken }}

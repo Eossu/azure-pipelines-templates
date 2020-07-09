@@ -9,11 +9,11 @@ parameters:
 stages:
   - stage: test
     jobs:
-      - template: ../job/check.yaml@templates
+      - template: ../jobs/check.yaml@templates
         parameters:
           PythonVersion: ${{ parameters.PythonVersion }}
       
-      - template: ../job/test.yaml@templates
+      - template: ../jobs/test.yaml@templates
         parameters:
           PythonVersion: ${{ parameters.PythonVersion }}
           jobs: ${{ parameters.jobs }}
