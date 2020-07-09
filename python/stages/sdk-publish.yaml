@@ -1,0 +1,12 @@
+parameters:
+  - name: PypiToken
+    type: string
+
+
+stages:
+  - stage: publish
+    condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/')
+    jobs:
+      - template: ../job/sdk-publish.yaml
+        parameters:
+          PypiToken: ${{ parameters.PypiToken }}

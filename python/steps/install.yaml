@@ -1,0 +1,13 @@
+parameters:
+  - name: PythonVersion
+    type: string
+
+
+steps:
+  - script: |
+      curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+    displayName: "Install Poetry"
+  
+  - script: |
+      poetry install
+    displayName: "Install dependencies"
