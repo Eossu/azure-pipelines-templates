@@ -19,7 +19,7 @@ jobs:
           variables: ${{ job.value.variables }}
 
         steps:
-          - template: ../steps/test.yml
+          - template: ../steps/test.yaml
             parameters:
               ${{ if startsWith(job.key, 'py36') }}:
                 PythonVersion: "3.6"
