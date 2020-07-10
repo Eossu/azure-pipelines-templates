@@ -33,14 +33,14 @@ steps:
   
   - task: PublishTestResults@2
     displayName: "Publish test results"
-    condition: succeededOrFailed()
+    condition: and(succeededOrFailed(), eq(${{ parameters.Coverage }}, true))
     inputs:
       testResultsFiles: '**/test-*.xml'
       testRunTitle: 'Publish test results for Python $(python.version)'
   
   - task: PublishCodeCoverageResults@1
     displayName: "Publish code coverage"
-    condition: succeededOrFailed()
+    condition: and(succeededOrFailed(), eq(${{ parameters.Coverage }}, true))
     inputs:
       codeCoverageTool: Cobertura
       summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage.xml'
