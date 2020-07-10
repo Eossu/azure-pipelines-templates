@@ -20,7 +20,7 @@ jobs:
       - script: |
           poetry version ${VERSION}
         env:
-          VERSION: $(Build.SourceBranch)
+          VERSION: $(Build.SourceBranchName)
           POETRY_CACHE_DIR: $(Pipeline.Workspace)/.cache/pypoetry/
         
       - script: |
