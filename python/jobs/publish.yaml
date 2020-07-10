@@ -30,10 +30,10 @@ jobs:
           POETRY_CACHE_DIR: $(Pipeline.Workspace)/.cache/pypoetry/
 
       - script: |
-          poetry publish -r ${REPOSITORY}
+          poetry publish
         env:
           POETRY_PYPI_TOKEN_PYPI: ${{ parameters.PypiToken }}
-          REPOSITORY: ${{ parameters.Repository }}
+          #REPOSITORY: ${{ parameters.Repository }}
           POETRY_CACHE_DIR: $(Pipeline.Workspace)/.cache/pypoetry/
         displayName: "Poetry publish"
         
