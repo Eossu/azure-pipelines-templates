@@ -1,13 +1,22 @@
 parameters:
-  - name: PythonVersion
-    type: string
-
+  - name: Lock
+    type: boolean
+    default: false
 
 steps:
   - script: |
-      curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+      python -m pip install poetry
     displayName: "Install Poetry"
+    env:
+      POETRY_CACHE_DIR: $(Pipeline.Workspace)/.cache/pypoetry/
+  
+  - script: |
+      poetry lock
+    condition: eq(${{ parameters.Lock }}, true)
+    displayName: "Lock dependencies"
   
   - script: |
       poetry install
     displayName: "Install dependencies"
+    env:
+      POETRY_CACHE_DIR: $(Pipeline.Workspace)/.cache/pypoetry/

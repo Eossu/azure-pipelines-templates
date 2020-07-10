@@ -1,4 +1,6 @@
 parameters:
+  - name: PythonVersion
+    type: string
   - name: PypiToken
     type: string
   - name: Repository
@@ -9,27 +11,29 @@ parameters:
 jobs:
   - job: publish
     steps:
-      - template: ../provision.yaml
+      - template: ../steps/provision.yaml
         parameters:
-          PythonVersion: "3.8"
+          PythonVersion: ${{ parameters.PythonVersion }}
 
-      - template: ../install.yaml
-        parameters:
-          PythonVersion: "3.8"
+      - template: ../steps/install.yaml
       
       - script: |
           poetry version ${VERSION}
         env:
-          VERSION: $(Build.SourceBranch)
+          VERSION: $(Build.SourceBranchName)
+          POETRY_CACHE_DIR: $(Pipeline.Workspace)/.cache/pypoetry/
         
       - script: |
           poetry build
         displayName: "Poetry build"
+        env:
+          POETRY_CACHE_DIR: $(Pipeline.Workspace)/.cache/pypoetry/
 
       - script: |
-          poetry publish -r ${REPOSITORY}
+          poetry publish
         env:
           POETRY_PYPI_TOKEN_PYPI: ${{ parameters.PypiToken }}
-          REPOSITORY: ${{ parameters.Repository }}
+          #REPOSITORY: ${{ parameters.Repository }}
+          POETRY_CACHE_DIR: $(Pipeline.Workspace)/.cache/pypoetry/
         displayName: "Poetry publish"
         

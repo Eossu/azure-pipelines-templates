@@ -1,7 +1,6 @@
 parameters:
   - name: PythonVersion
     type: string
-    default: "3.8"
   - name: jobs
     type: object
 
@@ -9,11 +8,10 @@ parameters:
 stages:
   - stage: test
     jobs:
-      - template: python/job/check.yaml@templates
+      - template: ../jobs/check.yaml@templates
         parameters:
           PythonVersion: ${{ parameters.PythonVersion }}
       
-      - template: python/job/test.yaml@templates
+      - template: ../jobs/test.yaml@templates
         parameters:
-          PythonVersion: ${{ parameters.PythonVersion }}
           jobs: ${{ parameters.jobs }}
