@@ -21,9 +21,12 @@ jobs:
       steps:
         - template: ../steps/test.yaml
           parameters:
+            ${{ if startsWith(job.key, 'py35') }}:
+              PythonVersion: "3.5"
             ${{ if startsWith(job.key, 'py36') }}:
               PythonVersion: "3.6"
             ${{ if startsWith(job.key, 'py37') }}:
               PythonVersion: "3.7"
             ${{ if startsWith(job.key, 'py38') }}:
               PythonVersion: "3.8"
+            Lock: ${{ eq(job.value.lock, true) }}

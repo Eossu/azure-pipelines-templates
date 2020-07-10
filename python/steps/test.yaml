@@ -1,6 +1,9 @@
 parameters:
   - name: PythonVersion
     type: string
+  - name: Lock
+    type: boolean
+    default: false
 
 steps:
   - template: provision.yaml
@@ -8,9 +11,11 @@ steps:
       PythonVersion: ${{ parameters.PythonVersion }}
   
   - template: install.yaml
+    parameters:
+      Lock: ${{ parameters.Lock }}
 
   - script: |
-      poetry run pytest -rxXs --junitxml=junit/test-results.xml --cov src --cov tests --cov-report xml --cov-report html
+      poetry run pytest -rxXs --junitxml=junit/test-results.xml --cov src --cov tests --cov-report xml
     displayName: "Test with pytest"
     env:
       POETRY_CACHE_DIR: $(Pipeline.Workspace)/.cache/pypoetry/
@@ -28,4 +33,3 @@ steps:
     inputs:
       codeCoverageTool: Cobertura
       summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage.xml'
-      #reportDirectory: '$(System.DefaultWorkingDirectory)/**/htmlcov'

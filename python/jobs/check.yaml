@@ -12,10 +12,25 @@ jobs:
       - template: ../steps/install.yaml
         
       - script: |
-          black --check --diff --target-version=py38 $SOURCE_FILES
-          flake8 $SOURCE_FILES
+          black --check --diff --target-version=py38 $SOURCE_FILES          
+        env:
+          SOURCE_FILES: "src tests"
+        displayName: "Run black"
+      
+      - script: |
           mypy $SOURCE_FILES
+        env:
+          SOURCE_FILES: "src tests"
+        displayName: "Run mypy"
+      
+      - script: |
           isort --check --diff $SOURCE_FILES
         env:
           SOURCE_FILES: "src tests"
-        displayName: "Run checks"
+        displayName: "Run isort"
+
+      - script: |
+          flake8 $SOURCE_FILES
+        env:
+          SOURCE_FILES: "src tests"
+        displayName: "Run flake8"
