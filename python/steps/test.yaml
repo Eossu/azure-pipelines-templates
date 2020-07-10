@@ -4,6 +4,9 @@ parameters:
   - name: Lock
     type: boolean
     default: false
+  - name: Coverage
+    type: boolean
+    default: false
 
 steps:
   - template: provision.yaml
@@ -13,9 +16,17 @@ steps:
   - template: install.yaml
     parameters:
       Lock: ${{ parameters.Lock }}
+  
+  - script: |
+      poetry run pytest -rxXs --junitxml=junit/test-results.xml --no-cov
+    condition: eq(${{ parameters.Coverage }}, false)
+    displayName: "Test with no coverage"
+    env:
+      POETRY_CACHE_DIR: $(Pipeline.Workspace)/.cache/pypoetry/
 
   - script: |
       poetry run pytest -rxXs --junitxml=junit/test-results.xml --cov src --cov tests --cov-report xml
+    condition: eq(${{ parameters.Coverage }}, true)
     displayName: "Test with pytest"
     env:
       POETRY_CACHE_DIR: $(Pipeline.Workspace)/.cache/pypoetry/

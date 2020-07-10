@@ -30,3 +30,4 @@ jobs:
             ${{ if startsWith(job.key, 'py38') }}:
               PythonVersion: "3.8"
             Lock: ${{ eq(job.value.lock, true) }}
+            Coverage: ${{ eq(job.value.coverage, true) }}
