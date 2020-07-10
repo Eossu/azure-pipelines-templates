@@ -12,7 +12,7 @@ steps:
   
   - script: |
       poetry lock
-    condition: eq(${{ parameter.Lock }}, true)
+    condition: eq(${{ parameters.Lock }}, true)
     displayName: "Lock dependencies"
   
   - script: |
